@@ -1,8 +1,15 @@
 if [ -z "$PS1" ]; then
-   return
+    return
 fi
 
-export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\]\$ '
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s`
+    ssh-add
+fi
 
 # Make bash check its window size after a process completes
 shopt -s checkwinsize
@@ -15,10 +22,12 @@ if [ "$TERM_PROGRAM" == "Apple_Terminal" ] && [ -z "$INSIDE_EMACS" ]; then
 	local SEARCH=' '
 	local REPLACE='%20'
 	local PWD_URL="file://$HOSTNAME${PWD//$SEARCH/$REPLACE}"
-	printf '\e]7;%s\a' "$PWD_URL"
+printf '\e]7;%s\a' "$PWD_URL"
     }
     PROMPT_COMMAND="update_terminal_cwd; $PROMPT_COMMAND"
 fi
 
-source ~/.git-completion.bash
-								    
+# Launch tmux if available and not already in a tmux session
+if [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    exec tmux
+fi
