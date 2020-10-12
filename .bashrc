@@ -6,6 +6,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/.motd ]; then
+    ~/.motd
+fi
+
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
     ssh-add
