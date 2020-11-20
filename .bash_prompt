@@ -170,8 +170,17 @@ function promptcmd()
 
 function load_prompt () {
     # Get PIDs
-    local parent_process=$(tr -d '\0' < /proc/$PPID/cmdline | cut -d \. -f 1)
-    local my_process=$(tr -d '\0' < /proc/$$/cmdline | cut -d \. -f 1)
+    local parent_process
+    local my_process
+
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        parent_process=$(tr -d '\0' < /proc/$PPID/cmdline | cut -d \. -f 1)
+        my_process=$(tr -d '\0' < /proc/$$/cmdline | cut -d \. -f 1)
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        parent_process=$(lsof -p $PPID | awk '$4 == "txt" { print $9 }' | head -n 1)
+        my_process=$(lsof -p $PPID | awk '$4 == "txt" { print $9 }' | head -n 1)
+    fi
+
 
     if  [[ $parent_process == script* ]]; then
         PROMPT_COMMAND=""

@@ -6,8 +6,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -f ~/.motd ]; then
-    ~/.motd
+if [[ "$OSTYPE" == "linux-gnu"* ]] && [[ -f ~/.motd ]]; then
+   ~/.motd
 fi
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
@@ -31,7 +31,4 @@ printf '\e]7;%s\a' "$PWD_URL"
     PROMPT_COMMAND="update_terminal_cwd; $PROMPT_COMMAND"
 fi
 
-# Launch tmux if available and not already in a tmux session
-if [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    exec tmux
-fi
+

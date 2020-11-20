@@ -6,9 +6,9 @@
 if [ -f ~/.bash_prompt ]; then
     . ~/.bash_prompt
 fi
-#export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\]\$ '
-#export PS1="\w @ \h (\u) \n| => "
-#export PS2="| => "
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;35m\]\w\[\033[00m\]\$ '
+export PS1="\w @ \h (\u) \n| => "
+export PS2="| => "
 
 #   Git Aware Prompts
 #   ------------------------------------------------------------
@@ -19,6 +19,8 @@ fi
 PATH=${PATH}:/usr/local/bin
 PATH=${PATH}:~/bin
 PATH=${PATH}:~/.local/bin
+PATH=${PATH}:/opt/local/bin
+PATH=${PATH}:/opt/local/sbin
 
 #   Set Default Editor
 #   ------------------------------------------------------------
@@ -56,4 +58,8 @@ if [ -f '~/bin/google-cloud-sdk/completion.bash.inc' ]; then
 fi
 if [ -f '~/bin/google-cloud-sdk/path.bash.inc' ]; then 
     . '~/bin/google-cloud-sdk/path.bash.inc'
+fi
+# Launch tmux if available and not already in a tmux session
+if [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    exec tmux
 fi
