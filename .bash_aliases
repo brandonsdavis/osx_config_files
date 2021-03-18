@@ -375,3 +375,7 @@ showa () { /usr/bin/grep --color=always -i -a1 $@ ~/Library/init/bash/aliases.ba
 # mcd:          Makes new Dir and jumps inside
 #   ------------------------------------------------------------
 mcd () { mkdir -p "$1" && cd "$1"; }
+
+# weather:      Displays the current weather and temp
+#   ------------------------------------------------------------
+ weather() { curl -m 1 wttr.in?format=3 2>/dev/null; }

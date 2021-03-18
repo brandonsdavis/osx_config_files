@@ -20,6 +20,10 @@ PATH=${PATH}:/usr/local/bin
 PATH=${PATH}:~/bin
 PATH=${PATH}:~/.local/bin
 
+#   Golang 
+#   ------------------------------------------------------------
+export GOPATH=${HOME}/go
+
 #   Set Default Editor
 #   ------------------------------------------------------------
 export EDITOR=/usr/bin/vim
