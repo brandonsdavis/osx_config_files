@@ -192,7 +192,7 @@ alias ipInfo0='ipconfig getpacket en0'
 #   ------------------------------------------------------------
 alias ipInfo1='ipconfig getpacket en1'
 
- # openPorts: All listening connections
+# openPorts: All listening connections
 #   ------------------------------------------------------------
 alias openPorts='sudo lsof -i | grep LISTEN'
 
@@ -216,35 +216,6 @@ add-alias ()
    echo alias $name=\'$value\' >>~/.bash_aliases
    eval alias $name=\'$value\'
    alias $name
-}
-
-# repeat: repeat a command a given number of times
-#     Example: repeat 10 echo foo
-#   -------------------------------------------------------------------
-repeat ()
-{ 
-    local count="$1" i;
-    shift;
-    for i in $(_seq 1 "$count");
-    do
-        eval "$@";
-    done
-}
-
-# Subfunction needed by `repeat'.
-#   -------------------------------------------------------------------
-_seq ()
-{ 
-    local lower upper output;
-    lower=$1 upper=$2;
-
-    if [ $lower -ge $upper ]; then return; fi
-    while [ $lower -lt $upper ];
-    do
-	echo -n "$lower "
-        lower=$(($lower + 1))
-    done
-    echo "$lower"
 }
 
 # psgrep: find the pid of a process
@@ -378,4 +349,4 @@ mcd () { mkdir -p "$1" && cd "$1"; }
 
 # weather:      Displays the current weather and temp
 #   ------------------------------------------------------------
- weather() { curl -m 1 wttr.in?format=3 2>/dev/null; }
+weather() { curl -m 1 wttr.in?format=3 2>/dev/null; }

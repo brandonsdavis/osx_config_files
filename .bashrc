@@ -3,7 +3,7 @@ if [ -z "$PS1" ]; then
 fi
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    . ~/.custom_aliases
 fi
 
 if [ -f ~/.motd ]; then
@@ -35,3 +35,33 @@ fi
 if [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
     exec tmux
 fi
+
+#Add repeat to bash. It's builtin in zsh
+# repeat: repeat a command a given number of times
+#     Example: repeat 10 echo foo
+#   -------------------------------------------------------------------
+repeat ()
+{ 
+    local count="$1" i;
+    shift;
+    for i in $(_seq 1 "$count");
+    do
+        eval "$@";
+    done
+}
+
+# Subfunction needed by `repeat'.
+#   -------------------------------------------------------------------
+_seq ()
+{ 
+    local lower upper output;
+    lower=$1 upper=$2;
+
+    if [ $lower -ge $upper ]; then return; fi
+    while [ $lower -lt $upper ];
+    do
+	echo -n "$lower "
+        lower=$(($lower + 1))
+    done
+    echo "$lower"
+}
