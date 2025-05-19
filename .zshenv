@@ -26,3 +26,4 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 HISTCONTROL=ignoredups:erasedups  # No dups.
 HISTSIZE=100000                   # Plenty of disk space these days, don't be stingy
 HISTFILESIZE=200000               # Plenty of disk space these days, don't be stingy
+source ~/.env
